@@ -1,0 +1,67 @@
+{
+  "closeout": null,
+  "created_at": "2026-11-18T16:27:31+00:00",
+  "current_focus": {
+    "cadence": "sequential",
+    "confirmed": false,
+    "domain": "charter-and-scope",
+    "started_at": "2026-11-18T16:27:38+00:00",
+    "status": "grilling",
+    "summary": "What DinkusKit Accounts owns, what its first version does, and how it is separate from Commerce."
+  },
+  "decisions": [
+    {
+      "baseline_ref": null,
+      "candidate_refs": [],
+      "choice": "In their own Registry plugin, DinkusKit Accounts (dinkus-accounts, repository dinkuskit/accounts), separate from Commerce. The first version has sign-in with a 6-digit code sent by email, saved addresses, the account page, and my orders (a signed-in shopper sees their past orders). Guest checkout always stays possible. Commerce drops all its shopper-account code once this plugin replaces it, ideally before Commerce's stable 0.9.0. Account forms are server pages whose Save is refused when the signed-in shopper changed since the page was drawn, using a token tied to the shopper (as WooCommerce and Shopify do), with no page script. Checkout fills a signed-in shopper's saved address on the server while drawing the page. Shoppers are not EmDash users. Replaces Commerce's shopper-accounts-v1-20261020. Not decided: how my orders and the checkout address fill cross EmDash's per-plugin storage with no plugin-to-plugin calls.",
+      "context_ref": "docs/CHARTER.md",
+      "created_at": "2026-11-18T16:27:38+00:00",
+      "deferred_reason": null,
+      "delivery_ref": null,
+      "dependencies": [],
+      "domain": "charter-and-scope",
+      "history": [
+        {
+          "at": "2026-11-18T16:27:38+00:00",
+          "choice": "In their own Registry plugin, DinkusKit Accounts (dinkus-accounts, repository dinkuskit/accounts), separate from Commerce. The first version has sign-in with a 6-digit code sent by email, saved addresses, the account page, and my orders (a signed-in shopper sees their past orders). Guest checkout always stays possible. Commerce drops all its shopper-account code once this plugin replaces it, ideally before Commerce's stable 0.9.0. Account forms are server pages whose Save is refused when the signed-in shopper changed since the page was drawn, using a token tied to the shopper (as WooCommerce and Shopify do), with no page script. Checkout fills a signed-in shopper's saved address on the server while drawing the page. Shoppers are not EmDash users. Replaces Commerce's shopper-accounts-v1-20261020. Not decided: how my orders and the checkout address fill cross EmDash's per-plugin storage with no plugin-to-plugin calls.",
+          "from": "proposed",
+          "implementation_ref": null,
+          "note": "user accepted the scoped decision",
+          "repair_required": false,
+          "review_classifications": [],
+          "review_ref": null,
+          "review_result": null,
+          "review_source_identity": null,
+          "to": "locked",
+          "verification_ref": null
+        }
+      ],
+      "id": "accounts-own-plugin-20261118",
+      "implementation_ref": null,
+      "question": "Where do shopper accounts live, and what does their first version do?",
+      "rationale": "Ronald on 18 Nov 2026 in the thread weighing Dad's restructuring plan: reopening shopper-accounts-v1-20261020 'yes'; accounts its own plugin 'yes - now - make the repo'; before stable 0.9.0 'yes ideally'; first version with emailed code, saved addresses, account page and Commerce dropping its account code 'yes'; my orders 'do it to start'. The two form and checkout rules are from template-store#235 and #237, agreed by Ronald on 18 Nov in the thread reviewing Dad's PRs.",
+      "repair_required": false,
+      "review_classifications": [],
+      "review_history": [],
+      "review_ref": null,
+      "review_result": null,
+      "review_source_identity": null,
+      "status": "locked",
+      "superseded_by": null,
+      "updated_at": "2026-11-18T16:27:38+00:00",
+      "verification_ref": null
+    }
+  ],
+  "last_activation": {
+    "at": "2026-11-18T16:27:31+00:00",
+    "mechanism": "implicit"
+  },
+  "last_pause": null,
+  "pause": null,
+  "recommendation": null,
+  "schema_version": "grilltrack/v0.1",
+  "status": "active",
+  "title": "DinkusKit Accounts: charter and first version",
+  "track_id": "gt-20261118162731-c78721",
+  "updated_at": "2026-11-18T16:27:38+00:00"
+}
