@@ -12,6 +12,13 @@ What exists:
 
 What the first version will do, and what is still open, is in [docs/CHARTER.md](docs/CHARTER.md).
 
+## How it fits with Commerce
+
+- **Accounts owns** the shopper: signing in with an emailed 6-digit code, staying signed in, saved addresses and the account pages.
+- **Commerce owns** products, prices, carts, checkout, orders and money. Accounts never changes any of them, and shoppers can always check out as guests.
+- Shoppers are not EmDash users. Staff sign in to the EmDash admin; shoppers sign in to the store.
+- EmDash keeps each plugin's data to itself, so Accounts cannot read Commerce's orders directly. How "my orders" and the saved checkout address cross that line is still being decided ([docs/CHARTER.md](docs/CHARTER.md)).
+
 ## Install type
 
 Registry only. The plugin is built for the EmDash plugin Registry and runs sandboxed. It is not listed in the Registry yet.
