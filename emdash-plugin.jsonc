@@ -1,0 +1,24 @@
+{
+  "$schema": "./node_modules/@emdash-cms/plugin-cli/schemas/emdash-plugin.schema.json",
+  "slug": "dinkus-accounts",
+  "publisher": "did:plc:ekk4pjmkh3k3ql2kfoex3qt4",
+  "name": "DinkusKit Accounts",
+  "description": "Shopper sign-in, saved addresses and past orders for DinkusKit Commerce stores on EmDash. Scaffold: it does nothing yet.",
+  "keywords": ["accounts", "customer accounts", "sign in", "ecommerce"],
+  "license": "MIT",
+  "author": {
+    "name": "DinkusKit",
+    "url": "https://dinkuskit.com"
+  },
+  "security": {
+    "url": "https://github.com/dinkuskit/accounts/security"
+  },
+  "repo": "https://github.com/dinkuskit/accounts",
+  "capabilities": [],
+  "storage": {},
+  "admin": {
+    "pages": [
+      { "path": "/accounts", "label": "Shopper accounts", "icon": "users" }
+    ]
+  }
+}

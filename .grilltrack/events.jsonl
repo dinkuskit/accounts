@@ -1,0 +1,4 @@
+{"action": "track_initialized", "at": "2026-11-18T16:27:31+00:00", "data": {"track_id": "gt-20261118162731-c78721"}, "event_id": "04b26629-1a3b-458b-a475-aa26aea18de8"}
+{"action": "focus_started", "at": "2026-11-18T16:27:38+00:00", "data": {"cadence": "sequential", "domain": "charter-and-scope"}, "event_id": "8c62df28-315a-4690-9223-ffcf6669f41f"}
+{"action": "decision_proposed", "at": "2026-11-18T16:27:38+00:00", "data": {"decision_id": "accounts-own-plugin-20261118"}, "event_id": "e8788469-ae4c-416a-ac3b-426b12707500"}
+{"action": "decision_locked", "at": "2026-11-18T16:27:38+00:00", "data": {"decision_id": "accounts-own-plugin-20261118"}, "event_id": "48070538-47fb-40c8-80dd-0e74c9fd17dd"}
