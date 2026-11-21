@@ -2,3 +2,6 @@
 {"action": "focus_started", "at": "2026-11-18T16:27:38+00:00", "data": {"cadence": "sequential", "domain": "charter-and-scope"}, "event_id": "8c62df28-315a-4690-9223-ffcf6669f41f"}
 {"action": "decision_proposed", "at": "2026-11-18T16:27:38+00:00", "data": {"decision_id": "accounts-own-plugin-20261118"}, "event_id": "e8788469-ae4c-416a-ac3b-426b12707500"}
 {"action": "decision_locked", "at": "2026-11-18T16:27:38+00:00", "data": {"decision_id": "accounts-own-plugin-20261118"}, "event_id": "48070538-47fb-40c8-80dd-0e74c9fd17dd"}
+{"action": "decision_proposed", "at": "2026-11-21T19:07:55+00:00", "data": {"decision_id": "accounts-v1-scope-20261121"}, "event_id": "b79cad60-97ac-4b07-8bd8-534e178d3e75"}
+{"action": "decision_locked", "at": "2026-11-21T19:07:55+00:00", "data": {"decision_id": "accounts-v1-scope-20261121"}, "event_id": "9b2cf3e2-f765-4434-b5a8-17285c9b9a71"}
+{"action": "decision_superseded", "at": "2026-11-21T19:07:55+00:00", "data": {"affected": ["accounts-v1-scope-20261121"], "decision_id": "accounts-own-plugin-20261118", "replacement_id": "accounts-v1-scope-20261121"}, "event_id": "a96da92f-06d4-4d1c-ba97-8b96ec3706b9"}

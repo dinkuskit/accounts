@@ -3,7 +3,7 @@
   "slug": "dinkus-accounts",
   "publisher": "did:plc:ekk4pjmkh3k3ql2kfoex3qt4",
   "name": "DinkusKit Accounts",
-  "description": "Shopper sign-in, saved addresses and past orders for DinkusKit Commerce stores on EmDash. Scaffold: it does nothing yet.",
+  "description": "Shopper sign-in and saved addresses for DinkusKit Commerce stores on EmDash. Scaffold: it does nothing yet.",
   "keywords": ["accounts", "customer accounts", "sign in", "ecommerce"],
   "license": "MIT",
   "author": {
