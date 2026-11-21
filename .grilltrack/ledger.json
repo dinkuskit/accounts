@@ -36,11 +36,11 @@
           "verification_ref": null
         },
         {
-          "at": "2026-11-21T19:07:55+00:00",
+          "at": "2026-11-21T19:12:47+00:00",
           "choice": "In their own Registry plugin, DinkusKit Accounts (dinkus-accounts, repository dinkuskit/accounts), separate from Commerce. The first version has sign-in with a 6-digit code sent by email, saved addresses, the account page, and my orders (a signed-in shopper sees their past orders). Guest checkout always stays possible. Commerce drops all its shopper-account code once this plugin replaces it, ideally before Commerce's stable 0.9.0. Account forms are server pages whose Save is refused when the signed-in shopper changed since the page was drawn, using a token tied to the shopper (as WooCommerce and Shopify do), with no page script. Checkout fills a signed-in shopper's saved address on the server while drawing the page. Shoppers are not EmDash users. Replaces Commerce's shopper-accounts-v1-20261020. Not decided: how my orders and the checkout address fill cross EmDash's per-plugin storage with no plugin-to-plugin calls.",
           "from": "locked",
           "implementation_ref": null,
-          "note": "Ronald deferred my orders and added a Commerce order lookup page on 21 Nov 2026; the rest carries over unchanged.",
+          "note": "On 2026-11-21 the owner deferred my orders and added a Commerce order lookup page; the rest carries over unchanged.",
           "repair_required": false,
           "review_classifications": [],
           "review_ref": null,
@@ -62,7 +62,7 @@
       "review_source_identity": null,
       "status": "superseded",
       "superseded_by": "accounts-v1-scope-20261121",
-      "updated_at": "2026-11-21T19:07:55+00:00",
+      "updated_at": "2026-11-21T19:12:47+00:00",
       "verification_ref": null
     },
     {
@@ -70,7 +70,7 @@
       "candidate_refs": [],
       "choice": "In their own Registry plugin, DinkusKit Accounts (dinkus-accounts, repository dinkuskit/accounts), separate from Commerce. The first version has sign-in with a 6-digit code sent by email (10 minutes, 5 tries, signed in for 30 days, carried over from Commerce), saved addresses and the account page. Guest checkout always stays possible. Shoppers are not EmDash users. Account forms are server pages whose Save is refused when the signed-in shopper changed since the page was drawn, using a token tied to the shopper, with no page script. Checkout fills a signed-in shopper's saved address on the server while drawing the page: the store's checkout page asks Accounts for it and fills the form, so Commerce never knows about accounts. An address typed at checkout is not saved to the account in the first version. MY ORDERS IS DEFERRED: a signed-in shopper sees no orders list yet; later choose between Commerce writing read-only order summaries to a hidden content collection that Accounts reads by email, and a signed pass from Accounts that a Commerce my-orders route checks; when it comes, earlier guest orders with the same email are included. Instead, Commerce gets an order lookup page like WooCommerce's Track your order: order number plus email shows that one order on a server page, the not-found message does not say which box was wrong, and wrong guesses are limited. Commerce drops all its shopper-account code, including its my-orders code, ideally before Commerce's stable 0.9.0. Replaces Commerce's shopper-accounts-v1-20261020.",
       "context_ref": "file:docs/CHARTER.md",
-      "created_at": "2026-11-21T19:07:55+00:00",
+      "created_at": "2026-11-21T19:12:46+00:00",
       "deferred_reason": null,
       "delivery_ref": null,
       "dependencies": [
@@ -79,7 +79,7 @@
       "domain": "charter-and-scope",
       "history": [
         {
-          "at": "2026-11-21T19:07:55+00:00",
+          "at": "2026-11-21T19:12:46+00:00",
           "choice": "In their own Registry plugin, DinkusKit Accounts (dinkus-accounts, repository dinkuskit/accounts), separate from Commerce. The first version has sign-in with a 6-digit code sent by email (10 minutes, 5 tries, signed in for 30 days, carried over from Commerce), saved addresses and the account page. Guest checkout always stays possible. Shoppers are not EmDash users. Account forms are server pages whose Save is refused when the signed-in shopper changed since the page was drawn, using a token tied to the shopper, with no page script. Checkout fills a signed-in shopper's saved address on the server while drawing the page: the store's checkout page asks Accounts for it and fills the form, so Commerce never knows about accounts. An address typed at checkout is not saved to the account in the first version. MY ORDERS IS DEFERRED: a signed-in shopper sees no orders list yet; later choose between Commerce writing read-only order summaries to a hidden content collection that Accounts reads by email, and a signed pass from Accounts that a Commerce my-orders route checks; when it comes, earlier guest orders with the same email are included. Instead, Commerce gets an order lookup page like WooCommerce's Track your order: order number plus email shows that one order on a server page, the not-found message does not say which box was wrong, and wrong guesses are limited. Commerce drops all its shopper-account code, including its my-orders code, ideally before Commerce's stable 0.9.0. Replaces Commerce's shopper-accounts-v1-20261020.",
           "from": "proposed",
           "implementation_ref": null,
@@ -93,11 +93,11 @@
           "verification_ref": null
         },
         {
-          "at": "2026-11-21T19:07:55+00:00",
+          "at": "2026-11-21T19:12:47+00:00",
           "choice": "In their own Registry plugin, DinkusKit Accounts (dinkus-accounts, repository dinkuskit/accounts), separate from Commerce. The first version has sign-in with a 6-digit code sent by email (10 minutes, 5 tries, signed in for 30 days, carried over from Commerce), saved addresses and the account page. Guest checkout always stays possible. Shoppers are not EmDash users. Account forms are server pages whose Save is refused when the signed-in shopper changed since the page was drawn, using a token tied to the shopper, with no page script. Checkout fills a signed-in shopper's saved address on the server while drawing the page: the store's checkout page asks Accounts for it and fills the form, so Commerce never knows about accounts. An address typed at checkout is not saved to the account in the first version. MY ORDERS IS DEFERRED: a signed-in shopper sees no orders list yet; later choose between Commerce writing read-only order summaries to a hidden content collection that Accounts reads by email, and a signed pass from Accounts that a Commerce my-orders route checks; when it comes, earlier guest orders with the same email are included. Instead, Commerce gets an order lookup page like WooCommerce's Track your order: order number plus email shows that one order on a server page, the not-found message does not say which box was wrong, and wrong guesses are limited. Commerce drops all its shopper-account code, including its my-orders code, ideally before Commerce's stable 0.9.0. Replaces Commerce's shopper-accounts-v1-20261020.",
           "from": "locked",
           "implementation_ref": null,
-          "note": "dependency accounts-own-plugin-20261118 changed: Ronald deferred my orders and added a Commerce order lookup page on 21 Nov 2026; the rest carries over unchanged.",
+          "note": "dependency accounts-own-plugin-20261118 changed: On 2026-11-21 the owner deferred my orders and added a Commerce order lookup page; the rest carries over unchanged.",
           "repair_required": false,
           "review_classifications": [],
           "review_ref": null,
@@ -110,7 +110,7 @@
       "id": "accounts-v1-scope-20261121",
       "implementation_ref": null,
       "question": "What does the first version of DinkusKit Accounts do, now that my orders and the checkout address fill have been talked through?",
-      "rationale": "Ronald's answers in thread 'Weigh Dad's Commerce restructuring plan': 20 Nov 12:52 UTC 'agreed' to earlier guest orders joining my orders, the server-side address fill and no save-from-checkout; 21 Nov 19:05 UTC, torn between the hidden-collection copy and the signed pass, he chose to defer my orders and do the order lookup page ('this does still seem useful for guest accounts'); 'lock it' 21 Nov 19:06 UTC. WooCommerce source: templates/order/form-tracking.php and includes/shortcodes/class-wc-shortcode-order-tracking.php (Order ID + Billing email, case-insensitive match, one generic not-found message). EmDash 1.4 keeps each plugin's storage separate with no plugin-to-plugin calls. Also follows dinkuskit-plugin-architecture-20261121 (store data stays in the store).",
+      "rationale": "The owner approved this scope on 2026-11-21 after comparing a read-only order-summary copy, a signed pass and an order lookup page; the lookup page also serves guests. WooCommerce source: templates/order/form-tracking.php and includes/shortcodes/class-wc-shortcode-order-tracking.php (Order ID + Billing email, case-insensitive match, one generic not-found message). EmDash 1.4 keeps each plugin's storage separate with no plugin-to-plugin calls. Follows dinkuskit-plugin-architecture-20261121 in dinkuskit/dinkuskit (store data stays in the store).",
       "repair_required": false,
       "review_classifications": [],
       "review_history": [],
@@ -119,7 +119,7 @@
       "review_source_identity": null,
       "status": "needs_reverification",
       "superseded_by": null,
-      "updated_at": "2026-11-21T19:07:55+00:00",
+      "updated_at": "2026-11-21T19:12:47+00:00",
       "verification_ref": null
     }
   ],
@@ -134,5 +134,5 @@
   "status": "active",
   "title": "DinkusKit Accounts: charter and first version",
   "track_id": "gt-20261118162731-c78721",
-  "updated_at": "2026-11-21T19:07:55+00:00"
+  "updated_at": "2026-11-21T19:12:47+00:00"
 }
