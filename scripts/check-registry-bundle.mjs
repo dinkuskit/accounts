@@ -17,9 +17,12 @@ execFileSync("tar", ["-xf", artifact.tarballPath, "-C", extracted]);
 const backend = await readFile(resolve(extracted, "backend.js"));
 const manifest = JSON.parse(await readFile(resolve(extracted, "manifest.json"), "utf8"));
 if (manifest.id !== "dinkus-accounts") throw new Error(`unexpected plugin id ${manifest.id}`);
-// The scaffold has no public route, no network host and no capability. Each one is added on purpose, here and in the manifest together.
-if (manifest.routes.some(route => route.public)) throw new Error("the Accounts plugin has no public route yet");
-if ((manifest.allowedHosts ?? []).length > 0 || (manifest.capabilities ?? []).length > 0) throw new Error("the Accounts plugin asks for no host or capability yet");
+// Each public route, network host and capability is added on purpose, here and in the manifest together.
+const PUBLIC_ROUTES = ["session", "sign-in/start", "sign-in/verify", "sign-out"];
+const publicRoutes = manifest.routes.filter(route => route.public).map(route => route.name).sort();
+if (JSON.stringify(publicRoutes) !== JSON.stringify(PUBLIC_ROUTES)) throw new Error(`unexpected public routes ${publicRoutes}`);
+if ((manifest.allowedHosts ?? []).length > 0) throw new Error("the Accounts plugin asks for no network host");
+if (JSON.stringify(manifest.capabilities ?? []) !== JSON.stringify(["email:send"])) throw new Error(`unexpected capabilities ${manifest.capabilities}`);
 console.log([
   "registry_bundle=pass",
   `backend_bytes=${backend.byteLength}`,

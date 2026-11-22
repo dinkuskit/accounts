@@ -5,8 +5,8 @@ import type { SandboxedRouteContext } from "emdash/plugin";
 const EDITOR = 40;
 
 /**
- * The Shopper accounts page in the store admin. The scaffold keeps no accounts, so the page
- * says so plainly instead of showing an empty list that looks broken.
+ * The Shopper accounts page in the store admin. Shoppers can sign in, but their saved addresses
+ * and account page are not built yet, so the page says what works today.
  */
 export async function accountsAdmin(route: SandboxedRouteContext): Promise<BlockResponse> {
   const user = route.user;
@@ -16,7 +16,7 @@ export async function accountsAdmin(route: SandboxedRouteContext): Promise<Block
   return {
     blocks: [
       { type: "header", text: "Shopper accounts" },
-      { type: "banner", variant: "default", title: "No shopper accounts yet", description: "This version of DinkusKit Accounts does not let shoppers sign in. Shoppers still check out as guests, and no email is sent." },
+      { type: "banner", variant: "default", title: "Shoppers can sign in with an emailed code", description: "A shopper enters their email, gets a 6-digit code from this store's email setup in EmDash, and stays signed in for 30 days. Saved addresses and the account page come next. Shoppers can always check out as guests." },
     ],
   };
 }
