@@ -105,6 +105,88 @@
       "superseded_by": null,
       "updated_at": "2026-11-22T13:40:00+00:00",
       "verification_ref": null
+    },
+    {
+      "baseline_ref": null,
+      "candidate_refs": [],
+      "choice": "Accounts asks for EmDash's email:send capability and sends the code with ctx.email.send, through whichever email provider the store has set up in EmDash. On EmDash 1.5 that includes the built-in SMTP provider under Settings > Email. Accounts carries no email provider, network host or key of its own. When the store has no provider, sign-in answers that email is unavailable, and guest checkout keeps working.",
+      "context_ref": "docs/CHARTER.md",
+      "created_at": "2026-11-22T14:37:15+00:00",
+      "deferred_reason": null,
+      "delivery_ref": null,
+      "dependencies": [],
+      "domain": "charter-and-scope",
+      "history": [
+        {
+          "at": "2026-11-22T14:37:16+00:00",
+          "choice": "Accounts asks for EmDash's email:send capability and sends the code with ctx.email.send, through whichever email provider the store has set up in EmDash. On EmDash 1.5 that includes the built-in SMTP provider under Settings > Email. Accounts carries no email provider, network host or key of its own. When the store has no provider, sign-in answers that email is unavailable, and guest checkout keeps working.",
+          "from": "proposed",
+          "implementation_ref": null,
+          "note": "user accepted the scoped decision",
+          "repair_required": false,
+          "review_classifications": [],
+          "review_ref": null,
+          "review_result": null,
+          "review_source_identity": null,
+          "to": "locked",
+          "verification_ref": null
+        }
+      ],
+      "id": "accounts-sign-in-email-20261122",
+      "implementation_ref": null,
+      "question": "How does Accounts email the sign-in code?",
+      "rationale": "The owner approved this on 2026-11-22. DinkusKit Commerce sends its sign-in codes the same way today, and EmDash routes every plugin's email through the site's chosen provider (emdash 1.5.0 src/plugins/email-smtp.ts and src/astro/routes/api/settings/email.ts), so the store owner sets email up once for every plugin.",
+      "repair_required": false,
+      "review_classifications": [],
+      "review_history": [],
+      "review_ref": null,
+      "review_result": null,
+      "review_source_identity": null,
+      "status": "locked",
+      "superseded_by": null,
+      "updated_at": "2026-11-22T14:37:16+00:00",
+      "verification_ref": null
+    },
+    {
+      "baseline_ref": null,
+      "candidate_refs": [],
+      "choice": "No. Nothing is moved. No real store has shopper accounts yet, so Commerce drops its shopper records with its shopper-account code, and a shopper who had signed in before signs in again with an emailed code.",
+      "context_ref": "docs/CHARTER.md",
+      "created_at": "2026-11-22T14:37:16+00:00",
+      "deferred_reason": null,
+      "delivery_ref": null,
+      "dependencies": [],
+      "domain": "charter-and-scope",
+      "history": [
+        {
+          "at": "2026-11-22T14:37:16+00:00",
+          "choice": "No. Nothing is moved. No real store has shopper accounts yet, so Commerce drops its shopper records with its shopper-account code, and a shopper who had signed in before signs in again with an emailed code.",
+          "from": "proposed",
+          "implementation_ref": null,
+          "note": "user accepted the scoped decision",
+          "repair_required": false,
+          "review_classifications": [],
+          "review_ref": null,
+          "review_result": null,
+          "review_source_identity": null,
+          "to": "locked",
+          "verification_ref": null
+        }
+      ],
+      "id": "accounts-no-account-move-20261122",
+      "implementation_ref": null,
+      "question": "Do shopper accounts already kept by Commerce move into Accounts?",
+      "rationale": "The owner approved this on 2026-11-22. The only stores running DinkusKit are test stores, so a move step would carry code with no one to serve.",
+      "repair_required": false,
+      "review_classifications": [],
+      "review_history": [],
+      "review_ref": null,
+      "review_result": null,
+      "review_source_identity": null,
+      "status": "locked",
+      "superseded_by": null,
+      "updated_at": "2026-11-22T14:37:16+00:00",
+      "verification_ref": null
     }
   ],
   "last_activation": {
@@ -118,5 +200,5 @@
   "status": "active",
   "title": "DinkusKit Accounts: charter and first version",
   "track_id": "gt-20261118162731-c78721",
-  "updated_at": "2026-11-22T13:40:00+00:00"
+  "updated_at": "2026-11-22T14:37:16+00:00"
 }

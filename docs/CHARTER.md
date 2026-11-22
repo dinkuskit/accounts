@@ -42,12 +42,14 @@ plugins, with every store's data kept in the store's own database.
 - **Commerce drops all its shopper-account code**, including its my-orders
   code, once this plugin replaces it.
 - **Timing:** ideally before Commerce's stable 0.9.0.
-
-## Not decided
-
-- How the sign-in email is sent.
-- How shoppers' existing Commerce accounts move across. There are no real
-  stores yet, so moving them may not be needed.
+- **The sign-in code is sent by the store's own email setup.** Accounts asks
+  EmDash to send it (the "send email" install permission), and EmDash uses
+  whichever email provider the store chose, including EmDash 1.5's built-in
+  SMTP under Settings > Email. Accounts has no email service of its own
+  (`accounts-sign-in-email-20261122`).
+- **Nothing moves across from Commerce.** No real store has shopper accounts
+  yet, so a shopper who signed in before signs in again
+  (`accounts-no-account-move-20261122`).
 
 ## Out of scope for the first version
 
