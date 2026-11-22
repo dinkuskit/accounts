@@ -2,7 +2,7 @@ import type { SandboxedPlugin } from "emdash/plugin";
 import { accountsAdmin } from "./admin.js";
 
 /**
- * DinkusKit Accounts for EmDash stores: shopper sign-in, saved addresses and past orders.
+ * DinkusKit Accounts for EmDash stores: shopper sign-in and saved addresses.
  * This is the scaffold. It has one admin page and keeps no data.
  */
 const plugin: SandboxedPlugin = {

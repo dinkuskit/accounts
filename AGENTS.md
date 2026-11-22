@@ -37,9 +37,10 @@ report before running project scripts.
   always check out as guests.
 - EmDash gives each plugin its own storage and has no plugin-to-plugin calls.
   Accounts cannot read Commerce's orders and Commerce cannot read Accounts'
-  shoppers. How "my orders" and the checkout address fill cross that line is
-  an open design question (docs/CHARTER.md); do not read another plugin's
-  data directly or assume cross-plugin access.
+  shoppers. The checkout address fill crosses that line through the store's
+  own checkout page, which asks Accounts on the server; my orders is deferred
+  (docs/CHARTER.md). Do not read another plugin's data directly or assume
+  cross-plugin access.
 - Shoppers are not EmDash users. Staff sign in to the EmDash admin; shoppers
   sign in to the store through this plugin.
 - Admin screens are Block Kit only. No React admin.
