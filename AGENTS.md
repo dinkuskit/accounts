@@ -52,16 +52,16 @@ report before running project scripts.
 
 ## Bootstrap state
 
-This is a scaffold. The plugin has one admin page, **Shopper accounts**, that
-says shoppers cannot sign in yet. It keeps no data, sends no email, and is not
-published. Shopper accounts still live in DinkusKit Commerce until this plugin
-replaces them. There is no release workflow or changeset setup yet; each
+Shoppers can sign in with an emailed code (README.md lists the routes). Saved
+addresses and the account page are not built yet, and nothing is published.
+Shopper accounts still live in DinkusKit Commerce until this plugin replaces
+them. There is no release workflow or changeset setup yet; each
 arrives in its own pull request.
 
 `.github/workflows/clawsweeper-dispatch.yml` sends non-draft pull requests to
 `main` for a ClawSweeper review, as in the other DinkusKit repositories. It
-does nothing until the repository variable `CLAWSWEEPER_SPARK_ENABLED` is
-`true` and the review runner has enrolled this repository.
+needs the repository variable `CLAWSWEEPER_SPARK_ENABLED` set to `true` and
+this repository enrolled with the review runner; both are done.
 
 Run `npm ci --ignore-scripts`, `npm run typecheck` and `npm test` before
 pushing. `npm test` builds the plugin, runs the official Registry packaging

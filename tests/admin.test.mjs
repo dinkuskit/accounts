@@ -17,20 +17,15 @@ test("the admin route is private and for Editors and Administrators", async () =
   for (const refused of [route(30), route(null), route(50, "editor-panel")]) {
     const response = await admin(refused, {});
     assert.match(text(response), /Editors and Administrators/);
-    assert.doesNotMatch(text(response), /No shopper accounts yet/);
+    assert.doesNotMatch(text(response), /Shoppers can sign in/);
   }
 });
 
-test("the Shopper accounts page says plainly that it does nothing yet", async () => {
+test("the Shopper accounts page says what works today", async () => {
   for (const role of [40, 50]) {
     const response = await admin(route(role), {});
     assert.equal(validateBlockResponse(response).valid, true);
-    assert.match(text(response), /No shopper accounts yet/);
-    assert.match(text(response), /no email is sent/);
+    assert.match(text(response), /Shoppers can sign in with an emailed code/);
+    assert.match(text(response), /Saved addresses and the account page come next/);
   }
-});
-
-test("the plugin has the admin route and nothing else", () => {
-  assert.deepEqual(Object.keys(plugin.routes), ["admin"]);
-  assert.equal(plugin.hooks, undefined);
 });
