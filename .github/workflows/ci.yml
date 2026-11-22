@@ -52,3 +52,5 @@ jobs:
       - run: npm ci --ignore-scripts --no-audit --no-fund
       - run: npm run typecheck
       - run: npm test
+      # The built plugin inside EmDash 1.5's production sandbox runner (workerd, real D1).
+      - run: npm run test:runtime

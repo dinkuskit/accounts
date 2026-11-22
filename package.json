@@ -16,14 +16,22 @@
   "scripts": {
     "build": "emdash-plugin validate && emdash-plugin build && node scripts/check-registry-bundle.mjs",
     "typecheck": "tsc --noEmit",
-    "test": "npm run build && node --test tests/*.test.mjs"
+    "test": "npm run build && node --test tests/*.test.mjs",
+    "test:runtime": "vitest run"
   },
   "devDependencies": {
+    "@astrojs/react": "7.0.1",
     "@emdash-cms/blocks": "1.5.0",
     "@emdash-cms/plugin-cli": "0.13.6",
+    "@emdash-cms/plugin-test": "0.2.12",
     "@emdash-cms/plugin-types": "0.6.1",
+    "astro": "7.3.8",
     "emdash": "1.5.0",
-    "typescript": "6.0.3"
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "typescript": "6.0.3",
+    "vite": "8.3.0",
+    "vitest": "4.1.10"
   },
   "license": "MIT",
   "repository": {

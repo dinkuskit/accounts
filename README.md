@@ -49,9 +49,11 @@ Node 24 (`.nvmrc`).
 npm ci --ignore-scripts
 npm run typecheck
 npm test
+npm run test:runtime
 ```
 
-`npm test` builds the plugin, packages it the way the Registry does (failing if the backend passes 128 KiB), and runs the tests.
+`npm test` builds the plugin, packages it the way the Registry does (failing if the backend passes 128 KiB), and runs the unit tests.
+`npm run test:runtime` runs the built plugin inside EmDash 1.5's production Cloudflare sandbox runner (workerd and a real D1 database, through `@emdash-cms/plugin-test`) and signs a shopper in and out through EmDash's own route dispatcher.
 
 ## Pull requests
 

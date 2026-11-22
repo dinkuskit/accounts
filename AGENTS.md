@@ -63,9 +63,11 @@ arrives in its own pull request.
 needs the repository variable `CLAWSWEEPER_SPARK_ENABLED` set to `true` and
 this repository enrolled with the review runner; both are done.
 
-Run `npm ci --ignore-scripts`, `npm run typecheck` and `npm test` before
-pushing. `npm test` builds the plugin, runs the official Registry packaging
-with its 128 KiB per-file limit, then runs the tests.
+Run `npm ci --ignore-scripts`, `npm run typecheck`, `npm test` and
+`npm run test:runtime` before pushing. `npm test` builds the plugin, runs the
+official Registry packaging with its 128 KiB per-file limit, then runs the unit
+tests. `npm run test:runtime` runs the built plugin in EmDash's production
+sandbox runner (workerd, real D1); behaviour a review asks to see goes there.
 
 ## Gates
 

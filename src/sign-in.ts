@@ -63,13 +63,14 @@ export interface SignInHost {
 }
 
 export type SignInErrorCode =
-  | "CODE_EXPIRED" | "CODE_INVALID" | "CONTENTION" | "EMAIL_INVALID" | "EMAIL_REQUIRED"
+  | "CODE_EXHAUSTED" | "CODE_EXPIRED" | "CODE_INVALID" | "CONTENTION" | "EMAIL_INVALID" | "EMAIL_REQUIRED"
   | "EMAIL_UNAVAILABLE" | "INVALID_INPUT" | "ORIGIN_DENIED" | "RATE_LIMITED" | "SESSION_DENIED" | "UNAVAILABLE";
 
 /** The message a shopper sees for each refusal. */
 export const SIGN_IN_ERRORS: Record<SignInErrorCode, string> = {
+  CODE_EXHAUSTED: "That code has had 5 tries. Ask for a new code.",
   CODE_EXPIRED: "That sign-in code has expired. Ask for a new one.",
-  CODE_INVALID: "That sign-in code is not right.",
+  CODE_INVALID: "That sign-in code is not right. Check the latest email, or ask for a new code.",
   CONTENTION: "Something changed at the same moment. Please try again.",
   EMAIL_INVALID: "Enter a valid email address.",
   EMAIL_REQUIRED: "Enter your email address.",
@@ -149,14 +150,15 @@ export function verifySignIn(store: SignInStore, host: SignInHost, input: unknow
     if (typeof code !== "string" || !/^[0-9]{6}$/.test(code.trim())) refuse("CODE_INVALID");
     const now = clock(host);
     const stored = await store.codes.getVersioned(emailKey);
-    if (!stored || stored.value.used || stored.value.tries >= CODE_TRIES) refuse("CODE_INVALID");
+    if (!stored || stored.value.used) refuse("CODE_INVALID");
+    if (stored.value.tries >= CODE_TRIES) refuse("CODE_EXHAUSTED");
     const challenge = stored.value;
     if (now >= challenge.expiresAt) refuse("CODE_EXPIRED");
     const matches = timingSafeEqual(challenge.verifier, await sha256Hex(`${emailKey}:${code.trim()}`));
     // Every try counts, right or wrong, and a right one uses the code up.
     const counted = await store.codes.compareAndSet(emailKey, stored.revision, { ...challenge, tries: challenge.tries + 1, used: matches });
     if (!counted.applied) refuse("CONTENTION");
-    if (!matches) refuse("CODE_INVALID");
+    if (!matches) refuse(challenge.tries + 1 >= CODE_TRIES ? "CODE_EXHAUSTED" : "CODE_INVALID");
 
     const shopper = await store.shoppers.getVersioned(emailKey);
     if (!shopper) {

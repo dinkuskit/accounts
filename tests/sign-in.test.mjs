@@ -21,6 +21,11 @@ function collection() {
       return { applied: true, revision: next.revision };
     },
     async delete(id) { return rows.delete(id); },
+    async compareAndDelete(id, expected) {
+      if (rows.get(id)?.revision !== expected) return { applied: false };
+      rows.delete(id);
+      return { applied: true };
+    },
     async deleteMany(ids) { return ids.filter(id => rows.delete(id)).length; },
     async query({ where, limit = 50 }) {
       const matching = [...rows].filter(([, row]) => row.value.expiresAt <= where.expiresAt.lte);
@@ -105,16 +110,19 @@ test("signing in again keeps the one shopper record", async () => {
   assert.equal(ctx.storage.sessions.rows.size, 2);
 });
 
-test("a code allows 5 tries, right or wrong", async () => {
+test("a code allows 5 tries, right or wrong, then says to ask for a new one", async () => {
   const { ctx, sent } = store();
   await call(ctx, "sign-in/start", { input: { email: "pat@example.test" } });
   const right = codeIn(sent[0]);
   const wrong = right === "000000" ? "111111" : "000000";
-  for (let attempt = 0; attempt < 5; attempt += 1) {
-    assert.equal((await call(ctx, "sign-in/verify", { input: { email: "pat@example.test", code: wrong } })).error.code, "CODE_INVALID");
+  for (let attempt = 1; attempt <= 4; attempt += 1) {
+    const answer = await call(ctx, "sign-in/verify", { input: { email: "pat@example.test", code: wrong } });
+    assert.equal(answer.error.code, "CODE_INVALID");
+    assert.match(answer.error.message, /ask for a new code/);
   }
+  assert.equal((await call(ctx, "sign-in/verify", { input: { email: "pat@example.test", code: wrong } })).error.code, "CODE_EXHAUSTED", "the 5th wrong try");
   const late = await call(ctx, "sign-in/verify", { input: { email: "pat@example.test", code: right } });
-  assert.equal(late.error.code, "CODE_INVALID");
+  assert.deepEqual(late.error, { code: "CODE_EXHAUSTED", message: "That code has had 5 tries. Ask for a new code." });
   assert.equal(ctx.storage.sessions.rows.size, 0);
 });
 
@@ -181,7 +189,7 @@ test("bad input is refused with the shopper's message", async () => {
   assert.equal((await start({ email: "pat@example.test", extra: 1 })).error.code, "INVALID_INPUT");
   assert.equal((await start("pat@example.test")).error.code, "INVALID_INPUT");
   const verify = await call(ctx, "sign-in/verify", { input: { email: "pat@example.test", code: "12345" } });
-  assert.deepEqual(verify, { ok: false, error: { code: "CODE_INVALID", message: "That sign-in code is not right." } });
+  assert.deepEqual(verify, { ok: false, error: { code: "CODE_INVALID", message: "That sign-in code is not right. Check the latest email, or ask for a new code." } });
 });
 
 test("with no email set up, sign-in says so and stores nothing", async () => {
@@ -219,4 +227,24 @@ test("expired codes and sessions are cleared twice a day", async t => {
   assert.equal(ctx.storage.sign_in_codes.rows.size, 0);
   assert.equal(ctx.storage.shoppers.rows.size, 1, "the shopper stays");
   assert.equal((await call(ctx, "session", { headers: { [SESSION_HEADER]: session } })).error.code, "SESSION_DENIED");
+});
+
+test("clean-up never deletes a code that was replaced after it looked", async t => {
+  t.mock.timers.enable({ apis: ["Date"], now: Date.parse("2026-11-22T12:00:00Z") });
+  const { ctx, sent } = store();
+  await call(ctx, "sign-in/start", { input: { email: "pat@example.test" } });
+  t.mock.timers.tick(11 * 60_000);
+  // The shopper asks for a new code while clean-up is between its query and its delete.
+  const codes = ctx.storage.sign_in_codes;
+  const query = codes.query.bind(codes);
+  codes.query = async options => {
+    const page = await query(options);
+    codes.query = query;
+    assert.equal((await call(ctx, "sign-in/start", { input: { email: "pat@example.test" } })).ok, true);
+    return page;
+  };
+  await plugin.hooks.cron({ name: "accounts-cleanup", scheduledAt: "" }, ctx);
+  assert.equal(codes.rows.size, 1, "the new code survives");
+  const verified = await call(ctx, "sign-in/verify", { input: { email: "pat@example.test", code: codeIn(sent.at(-1)) } });
+  assert.equal(verified.ok, true);
 });
