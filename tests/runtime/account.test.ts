@@ -57,3 +57,32 @@ test("another shopper, a stale tab, another site and bad fields cannot change th
 
   expect(await host.inspect.storage.get("shoppers", "pat@example.test")).toEqual(before);
 });
+
+test("after sign-out or expiry, the old session can neither read nor change the saved address and phone", async () => {
+  const pat = await signIn("pat@example.test");
+  const formToken = (await read(pat)).formToken as string;
+  await save(pat, { formToken, phone: "555-0100", delivery });
+  const before = await host.inspect.storage.get("shoppers", "pat@example.test");
+
+  expect(await call("sign-out", { headers: { ...SAME_ORIGIN, [SESSION_HEADER]: pat }, body: {} })).toEqual({ ok: true, signedOut: true });
+  for (let round = 0; round < 2; round += 1) {
+    const stale = await read(pat);
+    refused(stale, "SESSION_DENIED");
+    // No saved personal data in the refusal.
+    expect(JSON.stringify(stale)).not.toMatch(/555-0100|Main St|pat@example\.test/);
+    refused(await save(pat, { formToken, phone: "555-0199", delivery: null }), "SESSION_DENIED");
+    refused(await save(pat, { formToken, phone: null }), "SESSION_DENIED");
+    // Signed out stays signed out after EmDash restarts.
+    if (round === 0) await host.restart();
+  }
+
+  // A session past its 30 days is refused the same way.
+  await host.fixtures.plugin.storage("sessions", "old", {
+    sessionId: "old", emailKey: "pat@example.test", verifier: await sha256Hex("old:pat@example.test:old-secret"),
+    site: SITE, createdAt: nowSeconds() - 31 * 86400, expiresAt: nowSeconds() - 60,
+  });
+  refused(await read("old.old-secret"), "SESSION_DENIED");
+  refused(await save("old.old-secret", { formToken, phone: "555-0199" }), "SESSION_DENIED");
+
+  expect(await host.inspect.storage.get("shoppers", "pat@example.test")).toEqual(before);
+});
