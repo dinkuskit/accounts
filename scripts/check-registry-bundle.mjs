@@ -18,7 +18,7 @@ const backend = await readFile(resolve(extracted, "backend.js"));
 const manifest = JSON.parse(await readFile(resolve(extracted, "manifest.json"), "utf8"));
 if (manifest.id !== "dinkus-accounts") throw new Error(`unexpected plugin id ${manifest.id}`);
 // Each public route, network host and capability is added on purpose, here and in the manifest together.
-const PUBLIC_ROUTES = ["session", "sign-in/start", "sign-in/verify", "sign-out"];
+const PUBLIC_ROUTES = ["account", "session", "sign-in/start", "sign-in/verify", "sign-out"];
 const publicRoutes = manifest.routes.filter(route => route.public).map(route => route.name).sort();
 if (JSON.stringify(publicRoutes) !== JSON.stringify(PUBLIC_ROUTES)) throw new Error(`unexpected public routes ${publicRoutes}`);
 if ((manifest.allowedHosts ?? []).length > 0) throw new Error("the Accounts plugin asks for no network host");

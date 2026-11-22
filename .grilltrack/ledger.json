@@ -187,6 +187,49 @@
       "superseded_by": null,
       "updated_at": "2026-11-22T14:37:16+00:00",
       "verification_ref": null
+    },
+    {
+      "baseline_ref": null,
+      "candidate_refs": [],
+      "choice": "One delivery address and one phone number, as DinkusKit Commerce saves today and as WooCommerce keeps one shipping address per customer. Checkout fills them in; billing stays 'same as delivery' unless the shopper changes it at checkout, and billing is not saved. The shopper changes or clears them on the account page. Any two-letter country is accepted; checkout still applies the store's shipping countries. An address book with a default, as on Shopify, can come later without losing anything.",
+      "context_ref": "docs/CHARTER.md",
+      "created_at": "2026-11-22T14:57:52+00:00",
+      "deferred_reason": null,
+      "delivery_ref": null,
+      "dependencies": [
+        "accounts-v1-scope-20261121"
+      ],
+      "domain": "charter-and-scope",
+      "history": [
+        {
+          "at": "2026-11-22T14:57:52+00:00",
+          "choice": "One delivery address and one phone number, as DinkusKit Commerce saves today and as WooCommerce keeps one shipping address per customer. Checkout fills them in; billing stays 'same as delivery' unless the shopper changes it at checkout, and billing is not saved. The shopper changes or clears them on the account page. Any two-letter country is accepted; checkout still applies the store's shipping countries. An address book with a default, as on Shopify, can come later without losing anything.",
+          "from": "proposed",
+          "implementation_ref": null,
+          "note": "user accepted the scoped decision",
+          "repair_required": false,
+          "review_classifications": [],
+          "review_ref": null,
+          "review_result": null,
+          "review_source_identity": null,
+          "to": "locked",
+          "verification_ref": null
+        }
+      ],
+      "id": "accounts-saved-address-20261122",
+      "implementation_ref": null,
+      "question": "How many addresses does a signed-in shopper keep?",
+      "rationale": "The owner approved this on 2026-11-22. It is the smaller first version and the shape Commerce already proves; WooCommerce stores one shipping address per customer (customer shipping_* fields).",
+      "repair_required": false,
+      "review_classifications": [],
+      "review_history": [],
+      "review_ref": null,
+      "review_result": null,
+      "review_source_identity": null,
+      "status": "locked",
+      "superseded_by": null,
+      "updated_at": "2026-11-22T14:57:52+00:00",
+      "verification_ref": null
     }
   ],
   "last_activation": {
@@ -200,5 +243,5 @@
   "status": "active",
   "title": "DinkusKit Accounts: charter and first version",
   "track_id": "gt-20261118162731-c78721",
-  "updated_at": "2026-11-22T14:37:16+00:00"
+  "updated_at": "2026-11-22T14:57:52+00:00"
 }

@@ -2,58 +2,8 @@
  * Runtime proof: the built plugin runs inside EmDash 1.5's production Cloudflare sandbox runner
  * (workerd, real D1, PluginBridge), called through EmDash's own plugin route dispatcher.
  */
-import { createPluginRuntimeTestHost, type PluginRuntimeTestHost } from "@emdash-cms/plugin-test";
-import { afterEach, beforeEach, expect, test } from "vitest";
-
-const SITE = "https://shop.example.test";
-const SESSION_HEADER = "x-dinkus-accounts-session";
-const SAME_ORIGIN = { origin: SITE, "sec-fetch-site": "same-origin" };
-
-type Answer = { ok: boolean; email?: string; session?: string; expiresAt?: string; error?: { code: string; message: string } };
-
-let host: PluginRuntimeTestHost;
-beforeEach(async () => {
-  host = await createPluginRuntimeTestHost({ site: { name: "Corner Shop", url: SITE } });
-});
-afterEach(async () => {
-  await host.dispose();
-});
-
-async function call(route: string, init: { method?: string; headers?: Record<string, string>; body?: unknown; url?: string } = {}): Promise<Answer> {
-  const response = await host.actions.routes.request(route, {
-    url: init.url ?? `${SITE}/_emdash/api/plugins/${host.manifest.id}/${route}`,
-    method: init.method ?? "POST",
-    headers: init.headers ?? SAME_ORIGIN,
-    ...(init.body === undefined ? {} : { body: init.body }),
-  });
-  expect(response.status).toBe(200);
-  expect(response.headers.get("cache-control")).toContain("no-store");
-  const json = (await response.json()) as { success: boolean; data: Answer };
-  expect(json.success).toBe(true);
-  return json.data;
-}
-const session = (token: string) => call("session", { method: "GET", headers: { [SESSION_HEADER]: token } });
-const refused = (answer: Answer, code: string) => {
-  expect(answer).toEqual({ ok: false, error: { code, message: expect.any(String) } });
-};
-
-async function sha256Hex(text: string): Promise<string> {
-  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
-  return [...new Uint8Array(digest)].map(byte => byte.toString(16).padStart(2, "0")).join("");
-}
-const nowSeconds = () => Math.floor(Date.now() / 1000);
-
-async function signIn(email: string): Promise<string> {
-  const before = (await host.inspect.email()).length;
-  expect(await call("sign-in/start", { body: { email } })).toMatchObject({ ok: true, email });
-  const sent = (await host.inspect.email()).slice(before);
-  expect(sent).toHaveLength(1);
-  const code = /sign-in code: ([0-9]{6})$/.exec(String(sent[0]!.subject))?.[1];
-  expect(code).toMatch(/^[0-9]{6}$/);
-  const verified = await call("sign-in/verify", { body: { email, code } });
-  expect(verified).toMatchObject({ ok: true });
-  return verified.session!;
-}
+import { expect, test } from "vitest";
+import { call, host, nowSeconds, refused, SAME_ORIGIN, session, SESSION_HEADER, sha256Hex, signIn, SITE } from "./support.js";
 
 test("a shopper signs in with the emailed code, is read back, and signs out", async () => {
   expect(await host.inspect.scheduledTasks()).toEqual([

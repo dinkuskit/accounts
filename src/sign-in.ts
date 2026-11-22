@@ -14,9 +14,24 @@ export const SHOPPERS = "shoppers";
 export const SIGN_IN_CODES = "sign_in_codes";
 export const SESSIONS = "sessions";
 
+/** A delivery address in DinkusKit Commerce checkout's shape, so checkout can take it as it is. */
+export interface DeliveryAddress {
+  name: string;
+  line1: string;
+  line2?: string;
+  city: string;
+  region?: string;
+  postalCode: string;
+  /** ISO 3166-1 alpha-2, upper case. */
+  country: string;
+}
+
 export interface ShopperRecord {
   emailKey: string;
   email: string;
+  /** One phone number and one delivery address (accounts-saved-address-20261122); absent until saved. */
+  phone?: string;
+  delivery?: DeliveryAddress;
   createdAt: string;
   updatedAt: string;
 }
@@ -64,7 +79,8 @@ export interface SignInHost {
 
 export type SignInErrorCode =
   | "CODE_EXHAUSTED" | "CODE_EXPIRED" | "CODE_INVALID" | "CONTENTION" | "EMAIL_INVALID" | "EMAIL_REQUIRED"
-  | "EMAIL_UNAVAILABLE" | "INVALID_INPUT" | "ORIGIN_DENIED" | "RATE_LIMITED" | "SESSION_DENIED" | "UNAVAILABLE";
+  | "EMAIL_UNAVAILABLE" | "INVALID_INPUT" | "ORIGIN_DENIED" | "RATE_LIMITED" | "SESSION_DENIED" | "UNAVAILABLE"
+  | "ADDRESS_INVALID" | "ADDRESS_REQUIRED" | "PHONE_INVALID" | "STALE_FORM";
 
 /** The message a shopper sees for each refusal. */
 export const SIGN_IN_ERRORS: Record<SignInErrorCode, string> = {
@@ -80,6 +96,10 @@ export const SIGN_IN_ERRORS: Record<SignInErrorCode, string> = {
   RATE_LIMITED: "Please wait 30 seconds before asking for another code.",
   SESSION_DENIED: "You are not signed in.",
   UNAVAILABLE: "Shopper accounts are unavailable right now.",
+  ADDRESS_INVALID: "Check the address and try again.",
+  ADDRESS_REQUIRED: "Fill in name, address, city, postal code and country, or clear the whole address.",
+  PHONE_INVALID: "Enter a phone number of up to 64 characters.",
+  STALE_FORM: "This page is out of date because you signed in or out in another tab. Reload it and try again.",
 };
 
 export type Refusal = { ok: false; error: { code: SignInErrorCode; message: string } };
@@ -88,10 +108,11 @@ export const refusal = (code: SignInErrorCode): Refusal => ({ ok: false, error: 
 class Refused extends Error {
   constructor(readonly code: SignInErrorCode) { super(code); }
 }
-function refuse(code: SignInErrorCode): never {
+export function refuse(code: SignInErrorCode): never {
   throw new Refused(code);
 }
-async function answer<T>(work: () => Promise<T>): Promise<T | Refusal> {
+/** Runs the work and turns a refusal, or any surprise, into { ok: false, error }. */
+export async function answer<T>(work: () => Promise<T>): Promise<T | Refusal> {
   try {
     return await work();
   } catch (error) {
@@ -99,8 +120,8 @@ async function answer<T>(work: () => Promise<T>): Promise<T | Refusal> {
   }
 }
 
-const clock = (host: SignInHost) => host.now?.() ?? Math.floor(Date.now() / 1000);
-const iso = (seconds: number) => new Date(seconds * 1000).toISOString();
+export const clock = (host: SignInHost) => host.now?.() ?? Math.floor(Date.now() / 1000);
+export const iso = (seconds: number) => new Date(seconds * 1000).toISOString();
 
 function email(input: unknown, keys: string) {
   if (!isRecord(input) || sortedKeys(input) !== keys) refuse("INVALID_INPUT");
