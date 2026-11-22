@@ -47,6 +47,10 @@ plugins, with every store's data kept in the store's own database.
   whichever email provider the store chose, including EmDash 1.5's built-in
   SMTP under Settings > Email. Accounts has no email service of its own
   (`accounts-sign-in-email-20261122`).
+- **One delivery address and one phone number.** As Commerce saves today and
+  as WooCommerce keeps one shipping address per customer. Billing is not
+  saved; checkout keeps "same as delivery". An address book can come later
+  (`accounts-saved-address-20261122`).
 - **Nothing moves across from Commerce.** No real store has shopper accounts
   yet, so a shopper who signed in before signs in again
   (`accounts-no-account-move-20261122`).

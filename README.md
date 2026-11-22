@@ -10,10 +10,11 @@ What exists:
 
 - An EmDash Registry plugin, `dinkus-accounts`, on EmDash 1.5.
 - **Sign-in with an emailed code.** A shopper gives their email and gets a 6-digit code from the store's own email setup in EmDash. The code lasts 10 minutes and allows 5 tries; a new one can be asked for after 30 seconds. A right code starts a session that lasts 30 days. Expired codes and sessions are cleared twice a day.
+- **One delivery address and one phone number** per shopper, as Commerce saves today. The store's account page saves them and its checkout page fills them in. Billing is not saved; checkout keeps "same as delivery".
 - One admin page, **Shopper accounts**, that says what works today.
 - It asks for one capability, `email:send`, and no network host.
 
-Saved addresses and the account page come next.
+The store's account and checkout pages that call these routes are built in the template store.
 
 ### Shopper routes
 
@@ -25,6 +26,10 @@ The store's own server pages call these (public, never cached). Writes must come
 | `sign-in/verify` | POST | `{ "email", "code" }` | `{ "ok": true, "email", "session", "expiresAt" }` |
 | `session` | GET | header `x-dinkus-accounts-session` | `{ "ok": true, "email", "expiresAt" }` |
 | `sign-out` | POST | header `x-dinkus-accounts-session` | `{ "ok": true, "signedOut": true }` |
+| `account` | GET | header `x-dinkus-accounts-session` | `{ "ok": true, "email", "phone", "delivery", "formToken", "expiresAt" }` |
+| `account` | POST | the header, and `{ "formToken", "phone"?, "delivery"? }` | the same as GET, after saving |
+
+`delivery` has Commerce checkout's shape: `name`, `line1`, `line2` (optional), `city`, `region` (optional), `postalCode` and a two-letter `country`. Each saved key is optional and `null` clears it. `formToken` comes from the GET that drew the page; a Save whose token belongs to an earlier sign-in (another tab signed out and in) is refused with `STALE_FORM`.
 
 The store should keep `session` in an HttpOnly cookie and passes it back in the `x-dinkus-accounts-session` header. Only a hash of it is stored.
 

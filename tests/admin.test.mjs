@@ -26,6 +26,6 @@ test("the Shopper accounts page says what works today", async () => {
     const response = await admin(route(role), {});
     assert.equal(validateBlockResponse(response).valid, true);
     assert.match(text(response), /Shoppers can sign in with an emailed code/);
-    assert.match(text(response), /Saved addresses and the account page come next/);
+    assert.match(text(response), /one delivery address and phone number/);
   }
 });

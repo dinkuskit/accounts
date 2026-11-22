@@ -52,8 +52,9 @@ report before running project scripts.
 
 ## Bootstrap state
 
-Shoppers can sign in with an emailed code (README.md lists the routes). Saved
-addresses and the account page are not built yet, and nothing is published.
+Shoppers can sign in with an emailed code and keep one delivery address and
+one phone number (README.md lists the routes). The store pages that use them
+are not built yet, and nothing is published.
 Shopper accounts still live in DinkusKit Commerce until this plugin replaces
 them. There is no release workflow or changeset setup yet; each
 arrives in its own pull request.

@@ -9,3 +9,5 @@
 {"action": "decision_locked", "at": "2026-11-22T14:37:16+00:00", "data": {"decision_id": "accounts-sign-in-email-20261122"}, "event_id": "df5cf0d1-7894-4d7c-9969-29ead9a336ad"}
 {"action": "decision_proposed", "at": "2026-11-22T14:37:16+00:00", "data": {"decision_id": "accounts-no-account-move-20261122"}, "event_id": "5d04b1e3-9ad4-402f-98e5-f48c432c8bca"}
 {"action": "decision_locked", "at": "2026-11-22T14:37:16+00:00", "data": {"decision_id": "accounts-no-account-move-20261122"}, "event_id": "14760a6e-23a6-46da-a492-e8b2b270e79b"}
+{"action": "decision_proposed", "at": "2026-11-22T14:57:52+00:00", "data": {"decision_id": "accounts-saved-address-20261122"}, "event_id": "6d15878b-cd3c-42f2-aa64-86a664a1e8a9"}
+{"action": "decision_locked", "at": "2026-11-22T14:57:52+00:00", "data": {"decision_id": "accounts-saved-address-20261122"}, "event_id": "8556c67e-dbc5-4403-8bdc-774795e0f0c2"}
