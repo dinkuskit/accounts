@@ -4,7 +4,7 @@ Shopper accounts for [DinkusKit Commerce](https://github.com/dinkuskit/commerce)
 
 ## Status
 
-Being built; nothing is published. Until it is ready, shopper accounts still live in DinkusKit Commerce.
+Version 0.1.0 is set up to publish to the EmDash Registry as `dinkus-accounts`; the owner approved publishing on 2026-11-23. DinkusKit Commerce no longer has shopper accounts of its own. The store template's sign-in and account pages come back in a template release after this one is published; until then the template's account link leads to Commerce's order lookup.
 
 What exists:
 
@@ -44,7 +44,7 @@ What the first version will do, and what is still open, is in [docs/CHARTER.md](
 
 ## Install type
 
-Registry only. The plugin is built for the EmDash plugin Registry and runs sandboxed. It is not listed in the Registry yet.
+Registry only, sandboxed. The listing copy is in `docs/registry-listing/` and its icon in `assets/listing/`.
 
 ## Develop
 
@@ -59,6 +59,10 @@ npm run test:runtime
 
 `npm test` builds the plugin, packages it the way the Registry does (failing if the backend passes 128 KiB), and runs the unit tests.
 `npm run test:runtime` runs the built plugin inside EmDash 1.5's production Cloudflare sandbox runner (workerd and a real D1 database, through `@emdash-cms/plugin-test`) and signs a shopper in and out through EmDash's own route dispatcher.
+
+## Release
+
+`.github/workflows/release.yml` publishes to the EmDash Registry when a `vX.Y.Z` tag matching `package.json`'s version is pushed (Run workflow on the tag retries). It runs the checks, prepares the bundle with the pinned `emdash-plugin release prepare`, signs its build provenance, publishes with the pinned EmDash release-action (listing icon included), waits up to 30 minutes for the owner's approval at releases.emdashcms.com, and passes only when the Registry record carries exactly the prepared bundle. The service accepts releases only from a public repository. [`docs/proof/registry-release-authority/`](docs/proof/registry-release-authority/) shows how the service binds a release to the approved repository and workflow, and checks that authority again before it writes.
 
 ## Pull requests
 

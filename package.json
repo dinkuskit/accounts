@@ -1,6 +1,6 @@
 {
   "name": "@dinkuskit/accounts",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Shopper accounts for DinkusKit stores on EmDash",
   "type": "module",
   "private": true,

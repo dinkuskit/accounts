@@ -5,6 +5,16 @@
   "name": "DinkusKit Accounts",
   "description": "Shopper sign-in and saved addresses for DinkusKit Commerce stores on EmDash. Shoppers sign in with a 6-digit code sent by email.",
   "keywords": ["accounts", "customer accounts", "sign in", "ecommerce"],
+  "sections": {
+    "description": { "file": "./docs/registry-listing/description.md" },
+    "installation": { "file": "./docs/registry-listing/installation.md" },
+    "faq": { "file": "./docs/registry-listing/faq.md" }
+  },
+  "release": {
+    "artifacts": {
+      "icon": { "file": "./assets/listing/icon.png" }
+    }
+  },
   "license": "MIT",
   "author": {
     "name": "DinkusKit",
