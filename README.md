@@ -18,9 +18,11 @@ The store's account and checkout pages that call these routes are built in the t
 
 ### Shopper routes
 
-The store's own server pages call these (public, never cached). Writes must come from the store: its server page sends `Origin`, a browser sends `Sec-Fetch-Site: same-origin`. Every answer is JSON; a refusal is `{ "ok": false, "error": { "code", "message" } }` with a message a shopper can read.
+The store's own server pages call these public, uncached routes under `/_emdash/api/plugins/<installed-plugin-id>/`, using the ID EmDash assigned at Registry install. Writes must come from the store: its server page sends `Origin`, a browser sends `Sec-Fetch-Site: same-origin`.
 
-| Route | Method | Sends | Answers |
+Over HTTP, EmDash wraps the plugin's reply in `{ "success": true, "data": ... }`. Check the HTTP response and the outer `success` before reading `data`. A shopper-facing refusal still returns HTTP 200 and `success: true`: the result in `data` has `ok: false` and an `error` with `code` and `message`. Use `data.ok` to tell whether the shopper action succeeded.
+
+| Route | Method | Sends | `data` on success |
 |---|---|---|---|
 | `sign-in/start` | POST | `{ "email" }` | `{ "ok": true, "email", "expiresAt" }` and emails the code |
 | `sign-in/verify` | POST | `{ "email", "code" }` | `{ "ok": true, "email", "session", "expiresAt" }` |
