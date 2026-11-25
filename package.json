@@ -21,12 +21,12 @@
   },
   "devDependencies": {
     "@astrojs/react": "7.0.1",
-    "@emdash-cms/blocks": "1.5.0",
-    "@emdash-cms/plugin-cli": "0.13.6",
-    "@emdash-cms/plugin-test": "0.2.12",
+    "@emdash-cms/blocks": "1.6.0",
+    "@emdash-cms/plugin-cli": "0.13.7",
+    "@emdash-cms/plugin-test": "0.2.13",
     "@emdash-cms/plugin-types": "0.6.1",
     "astro": "7.3.8",
-    "emdash": "1.5.0",
+    "emdash": "1.6.0",
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "typescript": "6.0.3",
@@ -47,6 +47,6 @@
     "./sandbox": "./dist/plugin.mjs"
   },
   "peerDependencies": {
-    "emdash": "1.5.0"
+    "emdash": "1.6.0"
   }
 }
